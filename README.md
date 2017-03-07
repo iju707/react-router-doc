@@ -34,7 +34,7 @@ import Route from 'react-router-dom/Route'
 
 We’re still working on great documentation for the native capabilities of React Router. For now we recommend you read the source.
 
-```
+```bash
 yarn add react-router-native@next
 # or if not using the react-native cli
 npm install react-router-native@next
@@ -42,7 +42,7 @@ npm install react-router-native@next
 
 All of the package modules can be imported from the top:
 
-```
+```js
 import {
   NativeRouter as Router,
   DeepLinking,
@@ -55,7 +55,7 @@ import {
 
 ## Who-knows-where
 
-```
+```bash
 yarn add react-router@next
 # or if not using the react-native cli
 npm install react-router@next
@@ -63,7 +63,7 @@ npm install react-router@next
 
 All of the package modules can be imported from the top:
 
-```
+```js
 import {
   MemoryRouter as Router,
   Route
