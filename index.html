@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5">
 <meta name="author" content="Doc Writer">
-<title>Example Manual</title>
+<title>React Router Web 한글메뉴얼</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -513,12 +513,12 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Example Manual</h1>
+<h1>React Router Web 한글메뉴얼</h1>
 <div class="details">
 <span id="author" class="author">Doc Writer</span><br>
-<span id="email" class="email"><a href="mailto:doc.writer@example.org">doc.writer@example.org</a></span><br>
+<span id="email" class="email"><a href="mailto:iju707@gmail.com">iju707@gmail.com</a></span><br>
 <span id="revnumber">version 1.0.0-SNAPSHOT,</span>
-<span id="revdate">2015-08-08</span>
+<span id="revdate">2018-01-11</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -549,39 +549,8 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sect1">
 <h2 id="attributes">Attributes</h2>
 <div class="sectionbody">
-<div class="dlist">
-<div class="title">Built-in</div>
-<dl>
-<dt class="hdlist1">asciidoctor-version</dt>
-<dd>
-<p>1.5.5</p>
-</dd>
-<dt class="hdlist1">safe-mode-name</dt>
-<dd>
-<p>unsafe</p>
-</dd>
-<dt class="hdlist1">docdir</dt>
-<dd>
-<p>C:/Users/oofbird/IdeaProjects/react-router-doc/src/docs/asciidoc</p>
-</dd>
-<dt class="hdlist1">docfile</dt>
-<dd>
-<p>C:/Users/oofbird/IdeaProjects/react-router-doc/src/docs/asciidoc/index.adoc</p>
-</dd>
-</dl>
-</div>
-<div class="dlist">
-<div class="title">Custom</div>
-<dl>
-<dt class="hdlist1">project-version</dt>
-<dd>
-<p>1.0.0-SNAPSHOT</p>
-</dd>
-<dt class="hdlist1">endpoint-url</dt>
-<dd>
-<p><a href="http://oofbird.net" class="bare">http://oofbird.net</a></p>
-</dd>
-</dl>
+<div class="paragraph">
+<p>&#8230;&#8203;</p>
 </div>
 </div>
 </div>
@@ -590,46 +559,9 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">plugins {
-    id <span class="string"><span class="delimiter">'</span><span class="content">org.ajoberstar.github-pages</span><span class="delimiter">'</span></span> version <span class="string"><span class="delimiter">'</span><span class="content">1.5.1</span><span class="delimiter">'</span></span>
-    id <span class="string"><span class="delimiter">'</span><span class="content">org.asciidoctor.gradle.asciidoctor</span><span class="delimiter">'</span></span> version <span class="string"><span class="delimiter">'</span><span class="content">1.5.1</span><span class="delimiter">'</span></span>
-    id <span class="string"><span class="delimiter">'</span><span class="content">org.asciidoctor.convert</span><span class="delimiter">'</span></span> version <span class="string"><span class="delimiter">'</span><span class="content">1.5.3</span><span class="delimiter">'</span></span>
-}
+<pre class="CodeRay highlight"><code data-lang="java"><span class="keyword">import</span> <span class="include">java.lang.io</span>.*;
 
-githubPages {
-    repoUri = <span class="string"><span class="delimiter">'</span><span class="content">https://github.com/iju707/react-router-doc.git</span><span class="delimiter">'</span></span> <span class="comment">// Set this to the destination repo</span>
-
-    credentials {
-        username = project.hasProperty(<span class="string"><span class="delimiter">'</span><span class="content">githubToken</span><span class="delimiter">'</span></span>) ? project.githubToken : <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
-        password = <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
-    }
-
-    pages {
-        from file(asciidoctor.outputDir.path + <span class="string"><span class="delimiter">'</span><span class="content">/html5</span><span class="delimiter">'</span></span>)
-    }
-}
-
-version = <span class="string"><span class="delimiter">'</span><span class="content">1.0.0-SNAPSHOT</span><span class="delimiter">'</span></span>
-
-asciidoctorj {
-    version = <span class="string"><span class="delimiter">'</span><span class="content">1.5.5</span><span class="delimiter">'</span></span>
-}
-
-asciidoctor {
-    attributes \
-        <span class="string"><span class="delimiter">'</span><span class="content">build-gradle</span><span class="delimiter">'</span></span>: file(<span class="string"><span class="delimiter">'</span><span class="content">build.gradle</span><span class="delimiter">'</span></span>),
-            <span class="string"><span class="delimiter">'</span><span class="content">endpoint-url</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">http://oofbird.net</span><span class="delimiter">'</span></span>,
-            <span class="string"><span class="delimiter">'</span><span class="content">source-highlighter</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">coderay</span><span class="delimiter">'</span></span>,
-            <span class="string"><span class="delimiter">'</span><span class="content">imagesdir</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">images</span><span class="delimiter">'</span></span>,
-            <span class="string"><span class="delimiter">'</span><span class="content">toc</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">left</span><span class="delimiter">'</span></span>,
-            <span class="string"><span class="delimiter">'</span><span class="content">icons</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">font</span><span class="delimiter">'</span></span>,
-            <span class="string"><span class="delimiter">'</span><span class="content">setanchors</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
-            <span class="string"><span class="delimiter">'</span><span class="content">idprefix</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>,
-            <span class="string"><span class="delimiter">'</span><span class="content">idseparator</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">-</span><span class="delimiter">'</span></span>,
-            <span class="string"><span class="delimiter">'</span><span class="content">docinfo1</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>
-}
-
-publishGhPages.dependsOn asciidoctor</code></pre>
+<span class="type">class</span> <span class="class">Test</span> {}</code></pre>
 </div>
 </div>
 </div>
@@ -638,7 +570,7 @@ publishGhPages.dependsOn asciidoctor</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0-SNAPSHOT<br>
-Last updated 2018-01-11 00:09:28 KST
+Last updated 2018-01-11 00:25:38 KST
 </div>
 </div>
 </body>
