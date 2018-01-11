@@ -521,8 +521,11 @@ table.CodeRay td.code>pre{padding:0}
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#chapter-1">Chapter 1</a></li>
-<li><a href="#chapter-2">Chapter 2</a></li>
+<li><a href="#철학">철학</a>
+<ul class="sectlevel2">
+<li><a href="#static-routing">Static Routing</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -546,29 +549,33 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="sect1">
-<h2 id="chapter-1">Chapter 1</h2>
+<h2 id="철학">철학</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This is a Chapter 12</p>
+<p>이 가이드의 목적은 React Router를 사용할 때 가져야할 사상을 설명하기 위함입니다. 이것을 "Dynamic Routing"이라 부르며, 기존에 익숙한 "Static Routing"과는 매우 다릅니다.</p>
 </div>
+<div class="sect2">
+<h3 id="static-routing">Static Routing</h3>
 <div class="paragraph">
-<p>33</p>
+<p>Rails, Express, Ember, Angular 등과 같은 것을 사용했다면, Static Routing을 사용했을 것 입니다. 이러한 Framework에서는 화면에 렌더링하기 전에 어플리케이션을 초기화하는 부분에서 Route에 대한 정보를 정의합니다. React Router prev-v4에서도 Static 방식이었습니다. Express에서 어떻게 Route를 설정하는지 살펴보겠습니다.</p>
 </div>
-<div class="paragraph">
-<p>test</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="chapter-2">Chapter 2</h2>
-<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">app.get(<span class="string"><span class="delimiter">'</span><span class="content">/</span><span class="delimiter">'</span></span>, handleIndex)
+app.get(<span class="string"><span class="delimiter">'</span><span class="content">/invoices</span><span class="delimiter">'</span></span>, handleInvoices)
+app.get(<span class="string"><span class="delimiter">'</span><span class="content">/invoices/:id</span><span class="delimiter">'</span></span>, handleInvoice)
+app.get(<span class="string"><span class="delimiter">'</span><span class="content">/invoices/:id/edit</span><span class="delimiter">'</span></span>, handleInvoiceEdit)
 
+app.listen()</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-01-12 00:46:56 KST
+Last updated 2018-01-12 01:06:30 KST
 </div>
 </div>
 </body>
