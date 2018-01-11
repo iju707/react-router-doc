@@ -603,6 +603,28 @@ app.listen()</code></pre>
 <span class="reserved">export</span> <span class="reserved">class</span> AppModule { }</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Ember는 빌드할 때 읽고 어플리케이션에 가져오는 routes.js 파일을 가지고 있습니다. 다른것과 동일하게 어플리케이션이 렌더링 하기 전에 처리합니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">Router.map(<span class="keyword">function</span>() {
+  <span class="local-variable">this</span>.route(<span class="string"><span class="delimiter">'</span><span class="content">about</span><span class="delimiter">'</span></span>);
+  <span class="local-variable">this</span>.route(<span class="string"><span class="delimiter">'</span><span class="content">contact</span><span class="delimiter">'</span></span>);
+  <span class="local-variable">this</span>.route(<span class="string"><span class="delimiter">'</span><span class="content">rentals</span><span class="delimiter">'</span></span>, <span class="keyword">function</span>() {
+    <span class="local-variable">this</span>.route(<span class="string"><span class="delimiter">'</span><span class="content">show</span><span class="delimiter">'</span></span>, { <span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">/:rental_id</span><span class="delimiter">'</span></span> });
+  });
+});
+
+<span class="reserved">export</span> <span class="keyword">default</span> Router</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>API가 다르지만, 결국은 "Static Routes"라는 방식 모델을 사용하고 있습니다. React Router 또한 v4 버전 이전까지는 이러한 방식을 사용했었습니다.</p>
+</div>
+<div class="paragraph">
+<p>하지만 지금부터는 React Router를 적용하기 위해 위 내용을 모두 잊도록 하겠습니다! :0</p>
+</div>
 </div>
 </div>
 </div>
