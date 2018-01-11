@@ -545,13 +545,47 @@ app.get(<span class="string"><span class="delimiter">'</span><span class="conten
 app.listen()</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>어플리케이션이 시작되서 요청을 수신하기 전에 어떻게 Route할 것인지 정의를 합니다. Client쪽 Router도 이와 비슷합니다. Angular에서는 상단에 Route할 정보를 정의하고 렌더링하기 전에 최상위 AppModule에 해당 정보를 import합니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">const appRoutes: Routes = [
+  { <span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">crisis-center</span><span class="delimiter">'</span></span>,
+    <span class="key">component</span>: CrisisListComponent
+  },
+  { <span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">hero/:id</span><span class="delimiter">'</span></span>,
+    <span class="key">component</span>: HeroDetailComponent
+  },
+  { <span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">heroes</span><span class="delimiter">'</span></span>,
+    <span class="key">component</span>: HeroListComponent,
+    <span class="key">data</span>: { <span class="key">title</span>: <span class="string"><span class="delimiter">'</span><span class="content">Heroes List</span><span class="delimiter">'</span></span> }
+  },
+  { <span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>,
+    <span class="key">redirectTo</span>: <span class="string"><span class="delimiter">'</span><span class="content">/heroes</span><span class="delimiter">'</span></span>,
+    <span class="key">pathMatch</span>: <span class="string"><span class="delimiter">'</span><span class="content">full</span><span class="delimiter">'</span></span>
+  },
+  { <span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">**</span><span class="delimiter">'</span></span>,
+    <span class="key">component</span>: PageNotFoundComponent
+  }
+];
+
+<span class="error">@</span>NgModule({
+  <span class="key">imports</span>: [
+    RouterModule.forRoot(appRoutes)
+  ]
+})
+
+<span class="reserved">export</span> <span class="reserved">class</span> AppModule { }</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-01-12 01:14:03 KST
+Last updated 2018-01-12 01:23:58 KST
 </div>
 </div>
 </body>
