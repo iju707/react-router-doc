@@ -531,6 +531,8 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#nested-routes">Nested Routes</a></li>
 <li><a href="#반응형-routes">반응형 Routes</a></li>
 <li><a href="#설치">설치</a></li>
+<li><a href="#어플리케이션별-context-정보추가">어플리케이션별 context 정보추가</a></li>
+<li><a href="#404-401-또는-다른-상태">404, 401 또는 다른 상태</a></li>
 </ul>
 </li>
 </ul>
@@ -995,7 +997,139 @@ const BasicExample = () =&gt; (
 </div>
 </div>
 <div class="paragraph">
-<p>이제 알맞게 바꾸시면 됩니다. 즐겨보세요!</p>
+<p>이제 알맞게 바꾸시면 됩니다. 즐겨보세요!
+=== 서버 렌더링</p>
+</div>
+<div class="paragraph">
+<p>서버에서 렌더링하는 것은 상태가 없기 때문에 조금 다릅니다. 기본적으로 어플리케이션을 <em>&lt;BrowserRouter&gt;</em>가 아닌 상태가 없는 <em>&lt;StaticRouter&gt;</em>로 감쌉니다. 그리고 서버에 요청된 url과 다음에 이야기할 context 속성을 추가합니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript"><span class="comment">// client</span>
+<span class="tag">&lt;BrowserRouter&gt;</span>
+  <span class="tag">&lt;App</span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/BrowserRouter&gt;</span>
+
+<span class="comment">// server (not the complete story)</span>
+<span class="tag">&lt;StaticRouter</span>
+  <span class="attribute-name">location</span>=<span class="error">{</span><span class="attribute-value">req.url</span><span class="error">}</span>
+  <span class="attribute-name">context</span>=<span class="error">{</span><span class="attribute-value">context</span><span class="error">}</span>
+<span class="tag">&gt;</span>
+  <span class="tag">&lt;App</span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/StaticRouter&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>클라이언트에서 <em>&lt;Redirect&gt;</em>를 렌더링할 때 브라우저의 히스토리를 변경하고 새로운 화면을 가져옵니다. 정적 서버 환경에서는 어플리케이션의 상태를 바꿀 수 없습니다. 대신 <em>context</em> 속성을 활용해서 렌더링한 결과가 무엇이었는지 확인을 합니다. <em>context.url</em>에서 어플리케이션이 어디로 리다이렉트할지 확인합니다. 이것을 통해 서버에서 적정한 리다이렉션처리를 할 수 있습니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">const context = {}
+const markup = ReactDOMServer.renderToString(
+  <span class="tag">&lt;StaticRouter</span>
+    <span class="attribute-name">location</span>=<span class="error">{</span><span class="attribute-value">req.url</span><span class="error">}</span>
+    <span class="attribute-name">context</span>=<span class="error">{</span><span class="attribute-value">context</span><span class="error">}</span>
+  <span class="tag">&gt;</span>
+    <span class="tag">&lt;App</span><span class="tag">/&gt;</span>
+  <span class="tag">&lt;/StaticRouter&gt;</span>
+)
+
+<span class="keyword">if</span> (context.url) {
+  <span class="comment">// Somewhere a `&lt;Redirect&gt;` was rendered</span>
+  redirect(<span class="integer">301</span>, context.url)
+} <span class="keyword">else</span> {
+  <span class="comment">// we're good, send the response</span>
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="어플리케이션별-context-정보추가">어플리케이션별 context 정보추가</h4>
+<div class="paragraph">
+<p>라우터는 <em>context.url</em>만 추가할 수 있습니다. 그렇지만 아마 301 또는 301 상태에 대해서도 리다이렉트가 필요할 것 입니다. 또는 특정 부분을 렌더링할 때 404 오류를, 권한이 없다면 401 오류를 발생시키고자 할 것 입니다. <em>context</em> 속성은 제어가 가능하므로 변형시켜서 사용하시면 됩니다. 아래 301과 302에 대한 리다이렉트를 처리하는 예제를 보겠습니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">const RedirectWithStatus = ({ from, to, status }) =&gt; (
+  &lt;Route render={({ staticContext }) =&gt; {
+    <span class="comment">// there is no `staticContext` on the client, so</span>
+    <span class="comment">// we need to guard against that here</span>
+    <span class="keyword">if</span> (staticContext)
+      staticContext.status = status
+    <span class="keyword">return</span> <span class="tag">&lt;Redirect</span> <span class="attribute-name">from</span>=<span class="error">{</span><span class="attribute-value">from</span><span class="error">}</span> <span class="attribute-name">to</span>=<span class="error">{</span><span class="attribute-value">to</span><span class="error">}</span><span class="tag">/&gt;</span>
+  }}/&gt;
+)
+
+<span class="comment">// somewhere in your app</span>
+const App = () =&gt; (
+  <span class="tag">&lt;Switch&gt;</span>
+    {/* some other routes */}
+    <span class="tag">&lt;RedirectWithStatus</span>
+      <span class="attribute-name">status</span>=<span class="error">{</span><span class="attribute-value">301</span><span class="error">}</span>
+      <span class="attribute-name">from</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/users</span><span class="delimiter">&quot;</span></span>
+      <span class="attribute-name">to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/profiles</span><span class="delimiter">&quot;</span></span>
+    <span class="tag">/&gt;</span>
+    <span class="tag">&lt;RedirectWithStatus</span>
+      <span class="attribute-name">status</span>=<span class="error">{</span><span class="attribute-value">302</span><span class="error">}</span>
+      <span class="attribute-name">from</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/courses</span><span class="delimiter">&quot;</span></span>
+      <span class="attribute-name">to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/dashboard</span><span class="delimiter">&quot;</span></span>
+    <span class="tag">/&gt;</span>
+  <span class="tag">&lt;/Switch&gt;</span>
+)
+
+<span class="comment">// on the server</span>
+const context = {}
+
+const markup = ReactDOMServer.renderToString(
+  <span class="tag">&lt;StaticRouter</span> <span class="attribute-name">context</span>=<span class="error">{</span><span class="attribute-value">context</span><span class="error">}</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;App</span><span class="tag">/&gt;</span>
+  <span class="tag">&lt;/StaticRouter&gt;</span>
+)
+
+<span class="keyword">if</span> (context.url) {
+  <span class="comment">// can use the `context.status` that</span>
+  <span class="comment">// we added in RedirectWithStatus</span>
+  redirect(context.status, context.url)
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="404-401-또는-다른-상태">404, 401 또는 다른 상태</h4>
+<div class="paragraph">
+<p>이전의 예제와 비슷하게 처리하시면 됩니다. context를 추가한 컴포넌트를 만든 뒤 다른 상태처리를 위한 곳에 사용하시면 됩니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">const Status = ({ code, children }) =&gt; (
+  &lt;Route render={({ staticContext }) =&gt; {
+    <span class="keyword">if</span> (staticContext)
+      staticContext.status = code
+    <span class="keyword">return</span> children
+  }}/&gt;
+)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><em>staticContext</em>에 추가할 코드를 사용하여 어플리케이션 어디든 <em>Status</em> 컴포넌트를 사용하여 렌더링 하시면 됩니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">const NotFound = () =&gt; (
+  <span class="tag">&lt;Status</span> <span class="attribute-name">code</span>=<span class="error">{</span><span class="attribute-value">404</span><span class="error">}</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div&gt;</span>
+      <span class="tag">&lt;h1&gt;</span>Sorry, can’t find that.<span class="tag">&lt;/h1&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;/Status&gt;</span>
+)
+
+<span class="comment">// somewhere else</span>
+<span class="tag">&lt;Switch&gt;</span>
+  <span class="tag">&lt;Route</span> <span class="attribute-name">path</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/about</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">component</span>=<span class="error">{</span><span class="attribute-value">About</span><span class="error">}</span><span class="tag">/&gt;</span>
+  <span class="tag">&lt;Route</span> <span class="attribute-name">path</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/dashboard</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">component</span>=<span class="error">{</span><span class="attribute-value">Dashboard</span><span class="error">}</span><span class="tag">/&gt;</span>
+  <span class="tag">&lt;Route</span> <span class="attribute-name">component</span>=<span class="error">{</span><span class="attribute-value">NotFound</span><span class="error">}</span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/Switch&gt;</span></code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -1017,7 +1151,7 @@ const BasicExample = () =&gt; (
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-01-15 16:59:55 KST
+Last updated 2018-01-15 23:13:57 KST
 </div>
 </div>
 </body>
