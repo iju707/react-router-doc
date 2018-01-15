@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5">
-<title>Untitled</title>
+<title>빠른 시작</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -510,15 +510,136 @@ table.CodeRay td.code>pre{padding:0}
 .CodeRay .head .head{color:#f4f}
 </style>
 </head>
-<body class="article">
+<body class="article toc2 toc-left">
 <div id="header">
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#빠른-시작">빠른 시작</a>
+<ul class="sectlevel2">
+<li><a href="#설치">설치</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div id="content">
+<div class="sect1">
+<h2 id="빠른-시작">빠른 시작</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>React Web 프로젝트를 가장 빠르고 쉽게 하는 방법은 <a href="https://github.com/facebookincubator/create-react-app">Create React App</a>을 사용하는 것 입니다.</p>
+</div>
+<div class="paragraph">
+<p>맨 처음 create-react-app이 없다면 인스톨을 한 뒤 새로운 프로젝트를 만드시면 됩니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>npm install -g create-react-app
+create-react-app demo-app
+cd demo-app</pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="설치">설치</h3>
+<div class="paragraph">
+<p>React Router DOM은 <a href="https://npm.im/react-router-dom">NPM에 배포</a>되어있기 때문에 npm이나 <a href="https://yarnpkg.com/">yarn</a>을 활용해서 설치하시면 됩니다. Create React App이 yarn을 사용하기 때문에 여기서 또한 사용하겠습니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>yarn add react-router-dom
+# or, if you're not using yarn
+npm install react-router-dom</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>그 다음, <em>src/App.js</em>에 아래의 예제를 복사/붙이기 해보겠습니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript"><span class="reserved">import</span> React from <span class="string"><span class="delimiter">'</span><span class="content">react</span><span class="delimiter">'</span></span>
+<span class="reserved">import</span> {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from <span class="string"><span class="delimiter">'</span><span class="content">react-router-dom</span><span class="delimiter">'</span></span>
 
+const Home = () =&gt; (
+  <span class="tag">&lt;div&gt;</span>
+    <span class="tag">&lt;h2&gt;</span>Home<span class="tag">&lt;/h2&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+)
+
+const About = () =&gt; (
+  <span class="tag">&lt;div&gt;</span>
+    <span class="tag">&lt;h2&gt;</span>About<span class="tag">&lt;/h2&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+)
+
+const Topic = ({ match }) =&gt; (
+  <span class="tag">&lt;div&gt;</span>
+    <span class="tag">&lt;h3&gt;</span>{match.params.topicId}<span class="tag">&lt;/h3&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+)
+
+const Topics = ({ match }) =&gt; (
+  <span class="tag">&lt;div&gt;</span>
+    <span class="tag">&lt;h2&gt;</span>Topics<span class="tag">&lt;/h2&gt;</span>
+    <span class="tag">&lt;ul&gt;</span>
+      <span class="tag">&lt;li&gt;</span>
+        <span class="tag">&lt;Link</span> <span class="attribute-name">to</span>=<span class="error">{</span><span class="error">`</span><span class="error">$</span><span class="error">{</span><span class="attribute-value">match.url</span><span class="error">}</span><span class="error">/</span><span class="attribute-name">rendering</span><span class="error">`</span><span class="error">}</span><span class="tag">&gt;</span>
+          Rendering with React
+        <span class="tag">&lt;/Link&gt;</span>
+      <span class="tag">&lt;/li&gt;</span>
+      <span class="tag">&lt;li&gt;</span>
+        <span class="tag">&lt;Link</span> <span class="attribute-name">to</span>=<span class="error">{</span><span class="error">`</span><span class="error">$</span><span class="error">{</span><span class="attribute-value">match.url</span><span class="error">}</span><span class="error">/</span><span class="attribute-name">components</span><span class="error">`</span><span class="error">}</span><span class="tag">&gt;</span>
+          Components
+        <span class="tag">&lt;/Link&gt;</span>
+      <span class="tag">&lt;/li&gt;</span>
+      <span class="tag">&lt;li&gt;</span>
+        <span class="tag">&lt;Link</span> <span class="attribute-name">to</span>=<span class="error">{</span><span class="error">`</span><span class="error">$</span><span class="error">{</span><span class="attribute-value">match.url</span><span class="error">}</span><span class="error">/</span><span class="attribute-name">props-v-state</span><span class="error">`</span><span class="error">}</span><span class="tag">&gt;</span>
+          Props v. State
+        <span class="tag">&lt;/Link&gt;</span>
+      <span class="tag">&lt;/li&gt;</span>
+    <span class="tag">&lt;/ul&gt;</span>
+
+    <span class="tag">&lt;Route</span> <span class="attribute-name">path</span>=<span class="error">{</span><span class="error">`</span><span class="error">$</span><span class="error">{</span><span class="attribute-value">match.url</span><span class="error">}</span><span class="error">/</span><span class="attribute-name">:topicId</span><span class="error">`</span><span class="error">}</span> <span class="attribute-name">component</span>=<span class="error">{</span><span class="attribute-value">Topic</span><span class="error">}</span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;Route</span> <span class="attribute-name">exact</span> <span class="attribute-name">path</span>=<span class="error">{</span><span class="attribute-value">match.url</span><span class="error">}</span> <span class="attribute-name">render</span>=<span class="error">{</span><span class="error">(</span><span class="error">)</span> <span class="error">=</span><span class="tag">&gt;</span> (
+      <span class="tag">&lt;h3&gt;</span>Please select a topic.<span class="tag">&lt;/h3&gt;</span>
+    )}/<span class="error">&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+)
+
+const BasicExample = () =&gt; (
+  <span class="tag">&lt;Router&gt;</span>
+    <span class="tag">&lt;div&gt;</span>
+      <span class="tag">&lt;ul&gt;</span>
+        <span class="tag">&lt;li&gt;</span><span class="tag">&lt;Link</span> <span class="attribute-name">to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Home<span class="tag">&lt;/Link&gt;</span><span class="tag">&lt;/li&gt;</span>
+        <span class="tag">&lt;li&gt;</span><span class="tag">&lt;Link</span> <span class="attribute-name">to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/about</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>About<span class="tag">&lt;/Link&gt;</span><span class="tag">&lt;/li&gt;</span>
+        <span class="tag">&lt;li&gt;</span><span class="tag">&lt;Link</span> <span class="attribute-name">to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/topics</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Topics<span class="tag">&lt;/Link&gt;</span><span class="tag">&lt;/li&gt;</span>
+      <span class="tag">&lt;/ul&gt;</span>
+
+      <span class="tag">&lt;hr</span><span class="tag">/&gt;</span>
+
+      <span class="tag">&lt;Route</span> <span class="attribute-name">exact</span> <span class="attribute-name">path</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">component</span>=<span class="error">{</span><span class="attribute-value">Home</span><span class="error">}</span><span class="tag">/&gt;</span>
+      <span class="tag">&lt;Route</span> <span class="attribute-name">path</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/about</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">component</span>=<span class="error">{</span><span class="attribute-value">About</span><span class="error">}</span><span class="tag">/&gt;</span>
+      <span class="tag">&lt;Route</span> <span class="attribute-name">path</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/topics</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">component</span>=<span class="error">{</span><span class="attribute-value">Topics</span><span class="error">}</span><span class="tag">/&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;/Router&gt;</span>
+)
+<span class="reserved">export</span> <span class="keyword">default</span> BasicExample</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>이제 알맞게 바꾸시면 됩니다. 즐겨보세요!</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-01-15 16:08:32 KST
+Last updated 2018-01-15 16:35:00 KST
 </div>
 </div>
 </body>
