@@ -530,9 +530,22 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#dynamic-routing">Dynamic Routing</a></li>
 <li><a href="#nested-routes">Nested Routes</a></li>
 <li><a href="#반응형-routes">반응형 Routes</a></li>
+</ul>
+</li>
+<li><a href="#빠른-시작">빠른 시작</a>
+<ul class="sectlevel3">
 <li><a href="#설치">설치</a></li>
+</ul>
+</li>
+<li><a href="#서버-렌더링">서버 렌더링</a>
+<ul class="sectlevel3">
 <li><a href="#어플리케이션별-context-정보추가">어플리케이션별 context 정보추가</a></li>
 <li><a href="#404-401-또는-다른-상태">404, 401 또는 다른 상태</a></li>
+</ul>
+</li>
+<li><a href="#코드-분리">코드 분리</a>
+<ul class="sectlevel3">
+<li><a href="#렌더링이-완료된-뒤-로딩하기">렌더링이 완료된 뒤 로딩하기</a></li>
 </ul>
 </li>
 </ul>
@@ -889,9 +902,12 @@ const Invoices = () =&gt; (
 <p>사용자가 핸드폰을 세로모드에서 가로모드로 회전하면 코드에서는 자동으로 대시보드로 리다이렉트할 것 입니다. 사용자에게 있는 모바일 디바이스에 맞춰서 유효한 라우팅정보로 변경됩니다.</p>
 </div>
 <div class="paragraph">
-<p>이것은 단순한 예제이며, 더 많은 사례가 있지만 이쯤으로 하겠습니다. React Router를 사용하실 때 정적 라우팅이 아닌 컴포넌트로 생각하시면 됩니다. React Router에 대한 질문은 거의 React 질문과 유사하므로, React의 선언적 조합으로 문제를 어떻게 해결하는지 생각해보시면 됩니다.
-=== 빠른 시작</p>
+<p>이것은 단순한 예제이며, 더 많은 사례가 있지만 이쯤으로 하겠습니다. React Router를 사용하실 때 정적 라우팅이 아닌 컴포넌트로 생각하시면 됩니다. React Router에 대한 질문은 거의 React 질문과 유사하므로, React의 선언적 조합으로 문제를 어떻게 해결하는지 생각해보시면 됩니다.</p>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="빠른-시작">빠른 시작</h3>
 <div class="paragraph">
 <p>React Web 프로젝트를 가장 빠르고 쉽게 하는 방법은 <a href="https://github.com/facebookincubator/create-react-app">Create React App</a>을 사용하는 것 입니다.</p>
 </div>
@@ -903,7 +919,6 @@ const Invoices = () =&gt; (
 <pre>npm install -g create-react-app
 create-react-app demo-app
 cd demo-app</pre>
-</div>
 </div>
 </div>
 <div class="sect3">
@@ -997,9 +1012,12 @@ const BasicExample = () =&gt; (
 </div>
 </div>
 <div class="paragraph">
-<p>이제 알맞게 바꾸시면 됩니다. 즐겨보세요!
-=== 서버 렌더링</p>
+<p>이제 알맞게 바꾸시면 됩니다. 즐겨보세요!</p>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="서버-렌더링">서버 렌더링</h3>
 <div class="paragraph">
 <p>서버에서 렌더링하는 것은 상태가 없기 때문에 조금 다릅니다. 기본적으로 어플리케이션을 <em>&lt;BrowserRouter&gt;</em>가 아닌 상태가 없는 <em>&lt;StaticRouter&gt;</em>로 감쌉니다. 그리고 서버에 요청된 url과 다음에 이야기할 context 속성을 추가합니다.</p>
 </div>
@@ -1040,7 +1058,6 @@ const markup = ReactDOMServer.renderToString(
 } <span class="keyword">else</span> {
   <span class="comment">// we're good, send the response</span>
 }</code></pre>
-</div>
 </div>
 </div>
 <div class="sect3">
@@ -1133,6 +1150,74 @@ const markup = ReactDOMServer.renderToString(
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="코드-분리">코드 분리</h3>
+<div class="sect3">
+<h4 id="렌더링이-완료된-뒤-로딩하기">렌더링이 완료된 뒤 로딩하기</h4>
+<div class="paragraph">
+<p><em>Bundle</em> 컴포넌트는 새로운 화면에 도달했을 때 로딩하기 좋습니다. 또한 백그라운드에서 어플리케이션의 나머지를 미리 로딩하는데도 좋습니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript"><span class="reserved">import</span> loadAbout from <span class="string"><span class="delimiter">'</span><span class="content">bundle-loader?lazy!./loadAbout</span><span class="delimiter">'</span></span>
+<span class="reserved">import</span> loadDashboard from <span class="string"><span class="delimiter">'</span><span class="content">bundle-loader?lazy!./loadDashboard</span><span class="delimiter">'</span></span>
+
+<span class="comment">// components load their module for initial visit</span>
+const About = (props) =&gt; (
+  <span class="tag">&lt;Bundle</span> <span class="attribute-name">load</span>=<span class="error">{</span><span class="attribute-value">loadAbout</span><span class="error">}</span><span class="tag">&gt;</span>
+    {(About) =<span class="error">&gt;</span> <span class="tag">&lt;About</span> <span class="error">{</span><span class="attribute-name">...props</span><span class="error">}</span><span class="tag">/&gt;</span>}
+  <span class="tag">&lt;/Bundle&gt;</span>
+)
+
+const Dashboard = (props) =&gt; (
+  <span class="tag">&lt;Bundle</span> <span class="attribute-name">load</span>=<span class="error">{</span><span class="attribute-value">loadDashboard</span><span class="error">}</span><span class="tag">&gt;</span>
+    {(Dashboard) =<span class="error">&gt;</span> <span class="tag">&lt;Dashboard</span> <span class="error">{</span><span class="attribute-name">...props</span><span class="error">}</span><span class="tag">/&gt;</span>}
+  <span class="tag">&lt;/Bundle&gt;</span>
+)
+
+<span class="reserved">class</span> App <span class="reserved">extends</span> React.Component {
+  componentDidMount() {
+    <span class="comment">// preloads the rest</span>
+    loadAbout(() =&gt; {})
+    loadDashboard(() =&gt; {})
+  }
+
+  render() {
+    <span class="keyword">return</span> (
+      <span class="tag">&lt;div&gt;</span>
+        <span class="tag">&lt;h1&gt;</span>Welcome!<span class="tag">&lt;/h1&gt;</span>
+        <span class="tag">&lt;Route</span> <span class="attribute-name">path</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/about</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">component</span>=<span class="error">{</span><span class="attribute-value">About</span><span class="error">}</span><span class="tag">/&gt;</span>
+        <span class="tag">&lt;Route</span> <span class="attribute-name">path</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/dashboard</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">component</span>=<span class="error">{</span><span class="attribute-value">Dashboard</span><span class="error">}</span><span class="tag">/&gt;</span>
+      <span class="tag">&lt;/div&gt;</span>
+    )
+  }
+}</code></pre>
+</div>
+</div>
+<div class="sect4">
+<h5 id="코드-분리-서버-렌더링">코드 분리 + 서버 렌더링</h5>
+<div class="paragraph">
+<p>몇번의 실패과정을 겪은 뒤 다음을 배웠습니다.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>서버에서 동기식 모듈 처리가 필요할 경우, 초기 render에 모든 번들을 가져와야합니다.</p>
+</li>
+<li>
+<p>렌더링 전, 서버 렌더링에 관련된 모든 번들을 클라이언트에 로딩할 경우 클라이언트의 render가 서버와 동일해야합니다. (가장 까다로우며, 가능할 듯 하지만 포기했습니다.)</p>
+</li>
+<li>
+<p>클라이언트 생명의 나머지를 위해 비동기 처리가 필요합니다.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>우리는 구글이 서버렌더링 없이 필요한 만큼 잘 인덱싱 했다고 생각하며, 코드 분리와 서버 처리 캐싱에 대한 것을 제외하기로 했습니다. 서버 렌더링과 코드 분리를 시도하는 사람에게 성공을 기원합니다.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1151,7 +1236,7 @@ const markup = ReactDOMServer.renderToString(
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-01-15 23:13:57 KST
+Last updated 2018-01-16 01:06:51 KST
 </div>
 </div>
 </body>
