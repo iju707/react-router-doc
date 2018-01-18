@@ -550,7 +550,11 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 </ul>
 </li>
-<li><a href="#api">API</a></li>
+<li><a href="#api">API</a>
+<ul class="sectlevel2">
+<li><a href="#location">location</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -1232,6 +1236,116 @@ const Dashboard = (props) =&gt; (
 <div class="sect1">
 <h2 id="api">API</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="location">location</h3>
+<div class="paragraph">
+<p><em>location</em>은 어플리케이션이 현재 어디에 위치해있는지, 어디로 갈지, 어디에서 왔는지 보여줍니다. 모습은 다음과 같습니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript">{
+  <span class="key">key</span>: <span class="string"><span class="delimiter">'</span><span class="content">ac3df4</span><span class="delimiter">'</span></span>, <span class="comment">// not with HashHistory!</span>
+  <span class="key">pathname</span>: <span class="string"><span class="delimiter">'</span><span class="content">/somewhere</span><span class="delimiter">'</span></span>
+  search: <span class="string"><span class="delimiter">'</span><span class="content">?some=search-string</span><span class="delimiter">'</span></span>,
+  <span class="key">hash</span>: <span class="string"><span class="delimiter">'</span><span class="content">#howdy</span><span class="delimiter">'</span></span>,
+  <span class="key">state</span>: {
+    [userDefined]: <span class="predefined-constant">true</span>
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>아래와 같은 상황일 때 <em>location</em> 정보를 제공합니다.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Route의 component에 this.props.location</p>
+</li>
+<li>
+<p>Route의 render에 ({ location }) &#8658; ()</p>
+</li>
+<li>
+<p>Route의 children에 ({ location }) &#8658; ()</p>
+</li>
+<li>
+<p>withRouter에 this.props.location</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>history.location</em>으로도 접근이 가능하지만, 변경될 수 있으므로 권장되지 않습니다. 자세한 내용은 history를 참고하시면 됩니다.</p>
+</div>
+<div class="paragraph">
+<p><em>location</em> 객체는 변경되지 않기 때문에 경로변경이 발생하였을 때 데이터를 활용할 수 있습니다. 특히 데이터를 조회하거나 애니메이션 처리에 유용합니다.</p>
+</div>
+<div class="listingblock javascript">
+<div class="content">
+<pre class="CodeRay highlight"><code>componentWillReceiveProps(nextProps) {
+  if (nextProps.location !== this.props.location) {
+    // navigated!
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>탐색할 때 다양한 위치에 문자열말고 location 정보를 제공할 수 있습니다.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Web의 Link to</p>
+</li>
+<li>
+<p>Native의 Link to</p>
+</li>
+<li>
+<p>Redirect to</p>
+</li>
+<li>
+<p>history.push</p>
+</li>
+<li>
+<p>history.replace</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>경로문자열 이외에 특정 경로에서 반환받을 수 있는 별도의 location state를 추가할 때 <em>location</em> 객체를 활용하면 됩니다. Modal과 같이, 단순 경로 말고 <em>history</em>를 활용하여 UI를 탐색을 하는 어플리케이션일 때 유용합니다.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript"><span class="comment">// usually all you need</span>
+<span class="tag">&lt;Link</span> <span class="attribute-name">to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">somewhere</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
+
+<span class="comment">// but you can use a location instead</span>
+const location = {
+  <span class="key">pathname</span>: <span class="string"><span class="delimiter">'</span><span class="content">somewhere</span><span class="delimiter">'</span></span>
+  state: { <span class="key">fromDashboard</span>: <span class="predefined-constant">true</span> }
+}
+
+<span class="tag">&lt;Link</span> <span class="attribute-name">to</span>=<span class="error">{</span><span class="attribute-value">location</span><span class="error">}</span><span class="tag">/&gt;</span>
+<span class="tag">&lt;Redirect</span> <span class="attribute-name">to</span>=<span class="error">{</span><span class="attribute-value">location</span><span class="error">}</span><span class="tag">/&gt;</span>
+history.push(location)
+history.replace(location)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>마지막으로 다음의 컴포넌트에 <em>location</em>을 전달할 수 있습니다.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Route</p>
+</li>
+<li>
+<p>Switch</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>이것은 라우터의 실제 location 정보를 사용하지 않고 진행할 수 있습니다. 실제 위치와 다른 위치에 있을 때 애니메이션하거나 네비게이션을 추가, 렌더링 속의 무언가 트릭이 필요할 때 유용합니다.</p>
+</div>
 <ins class="adsbygoogle ad3"
      style="display:block"
      data-ad-client="ca-pub-1537305666483956"
@@ -1243,9 +1357,10 @@ const Dashboard = (props) =&gt; (
 </div>
 </div>
 </div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-01-17 01:06:50 KST
+Last updated 2018-01-19 00:42:24 KST
 </div>
 </div>
 </body>
