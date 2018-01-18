@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5">
-<title>location</title>
+<title>match</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -515,126 +515,62 @@ table.CodeRay td.code>pre{padding:0}
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel2">
-<li><a href="#location">location</a></li>
+<li><a href="#match">match</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect2">
-<h3 id="location">location</h3>
+<h3 id="match">match</h3>
 <div class="paragraph">
-<p><em>location</em>은 어플리케이션이 현재 어디에 위치해있는지, 어디로 갈지, 어디에서 왔는지 보여줍니다. 모습은 다음과 같습니다.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="javascript">{
-  <span class="key">key</span>: <span class="string"><span class="delimiter">'</span><span class="content">ac3df4</span><span class="delimiter">'</span></span>, <span class="comment">// not with HashHistory!</span>
-  <span class="key">pathname</span>: <span class="string"><span class="delimiter">'</span><span class="content">/somewhere</span><span class="delimiter">'</span></span>,
-  <span class="key">search</span>: <span class="string"><span class="delimiter">'</span><span class="content">?some=search-string</span><span class="delimiter">'</span></span>,
-  <span class="key">hash</span>: <span class="string"><span class="delimiter">'</span><span class="content">#howdy</span><span class="delimiter">'</span></span>,
-  <span class="key">state</span>: {
-    [userDefined]: <span class="predefined-constant">true</span>
-  }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>아래와 같은 상황일 때 <em>location</em> 정보를 제공합니다.</p>
+<p><em>match</em> 객체는 <em>&lt;Route path&gt;</em>에서 어떻게 URL과 매칭했는지에 대한 정보입니다. <em>match</em> 객체는 다음을 가지고 있습니다.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Route의 component에 this.props.location</p>
+<p><em>params</em> - (object) 키/값 쌍으로 경로에서 추출된 동적요소입니다.</p>
 </li>
 <li>
-<p>Route의 render에 ({ location }) &#8658; ()</p>
+<p><em>isExact</em> - (boolean) 전체적인 URL이 모두 일치하는 경우 <em>true</em> (문자 테일링 없음)</p>
 </li>
 <li>
-<p>Route의 children에 ({ location }) &#8658; ()</p>
+<p><em>path</em> - (string) 일치하는 경로 패턴. 중첩된 &lt;Route&gt;에 유용</p>
 </li>
 <li>
-<p>withRouter에 this.props.location</p>
+<p><em>url</em> - (string) URL에서 일치하는 부분. 중첩된 &lt;Link&gt;에 유용</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p><em>history.location</em>으로도 접근이 가능하지만, 변경될 수 있으므로 권장되지 않습니다. 자세한 내용은 history를 참고하시면 됩니다.</p>
-</div>
-<div class="paragraph">
-<p><em>location</em> 객체는 변경되지 않기 때문에 경로변경이 발생하였을 때 데이터를 활용할 수 있습니다. 특히 데이터를 조회하거나 애니메이션 처리에 유용합니다.</p>
-</div>
-<div class="listingblock javascript">
-<div class="content">
-<pre class="CodeRay highlight"><code>componentWillReceiveProps(nextProps) {
-  if (nextProps.location !== this.props.location) {
-    // navigated!
-  }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>탐색할 때 다양한 위치에 문자열말고 location 정보를 제공할 수 있습니다.</p>
+<p><em>match</em> 객체를 다양한 곳에서 접근할 수 있습니다.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Web의 Link to</p>
+<p>Route component에서 this.props.match</p>
 </li>
 <li>
-<p>Native의 Link to</p>
+<p>Route render에서 ({match}) &#8658; ()</p>
 </li>
 <li>
-<p>Redirect to</p>
+<p>Route children에서 ({ match }) &#8658; ()</p>
 </li>
 <li>
-<p>history.push</p>
+<p>withRouter에서 this.props.match</p>
 </li>
 <li>
-<p>history.replace</p>
+<p>matchPath에서 반환값</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>경로문자열 이외에 특정 경로에서 반환받을 수 있는 별도의 location state를 추가할 때 <em>location</em> 객체를 활용하면 됩니다. Modal과 같이, 단순 경로 말고 <em>history</em>를 활용하여 UI를 탐색을 하는 어플리케이션일 때 유용합니다.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="javascript"><span class="comment">// usually all you need</span>
-<span class="tag">&lt;Link</span> <span class="attribute-name">to</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">somewhere</span><span class="delimiter">&quot;</span></span><span class="tag">/&gt;</span>
-
-<span class="comment">// but you can use a location instead</span>
-const location = {
-  <span class="key">pathname</span>: <span class="string"><span class="delimiter">'</span><span class="content">somewhere</span><span class="delimiter">'</span></span>
-  state: { <span class="key">fromDashboard</span>: <span class="predefined-constant">true</span> }
-}
-
-<span class="tag">&lt;Link</span> <span class="attribute-name">to</span>=<span class="error">{</span><span class="attribute-value">location</span><span class="error">}</span><span class="tag">/&gt;</span>
-<span class="tag">&lt;Redirect</span> <span class="attribute-name">to</span>=<span class="error">{</span><span class="attribute-value">location</span><span class="error">}</span><span class="tag">/&gt;</span>
-history.push(location)
-history.replace(location)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>마지막으로 다음의 컴포넌트에 <em>location</em>을 전달할 수 있습니다.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Route</p>
-</li>
-<li>
-<p>Switch</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>이것은 라우터의 실제 location 정보를 사용하지 않고 진행할 수 있습니다. 실제 위치와 다른 위치에 있을 때 애니메이션하거나 네비게이션을 추가, 렌더링 속의 무언가 트릭이 필요할 때 유용합니다.</p>
+<p>만약 <em>Route</em>가 <em>path</em>가 없고 항상 일치한다면, 가장 가까운 상위 <em>match</em>값을 가지게 됩니다. 이것은 <em>withRouter</em> 사용하는 것과 동일합니다.</p>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-01-19 00:44:29 KST
+Last updated 2018-01-19 00:59:03 KST
 </div>
 </div>
 </body>
