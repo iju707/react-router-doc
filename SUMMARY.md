@@ -4,4 +4,5 @@
 * Guide
   * [철학](guide/philosophy.md)
   * [간단히 해보기](guide/quick_start.md)
+  * [서버 렌더링](guide/server_rendering.md)
 
