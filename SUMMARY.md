@@ -8,4 +8,5 @@
   * [코드 분리](guide/code_splitting.md)
 * API
   * [match](api/match.md)
+* [location](api/location.md)
 
