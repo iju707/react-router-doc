@@ -3,4 +3,5 @@
 * [소개](README.md)
 * Guide
   * [철학](guide/philosophy.md)
+  * [간단히 해보기](guide/quick_start.md)
 
