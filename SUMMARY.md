@@ -1,5 +1,5 @@
 # Summary
 
-* [Installation](README.md)
-* [First Chapter](chapter1.md)
+* [소개](README.md)
+* [철학](cca0-d559.md)
 
