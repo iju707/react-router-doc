@@ -6,8 +6,9 @@
   * [간단히 해보기](guide/quick_start.md)
   * [서버 렌더링](guide/server_rendering.md)
   * [코드 분리](guide/code_splitting.md)
-* [API](api.md)
+* API
+  * [BrowserRouter](api/browser_router.md)
   * [match](api/match.md)
   * [location](api/location.md)
-  * [BrowserRouter](api/browser_router.md)
+
 
