@@ -1,4 +1,4 @@
-# <BrowserRouter>
+# &lt;BrowserRouter&gt;
 
 HTML5의 history API(__pushState__, __replaceState__, __popState__)를 활용하여 URL과 화면을 동기화하는 <Router> 종류 중 하나 입니다.
 
