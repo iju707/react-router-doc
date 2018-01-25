@@ -7,7 +7,7 @@
   * [서버 렌더링](guide/server_rendering.md)
   * [코드 분리](guide/code_splitting.md)
 * API
-  * [&lt;BrowserRouter&gt;](api/browser_router.md)
+  * [`<BrowserRouter>`](api/browser_router.md)
   * [match](api/match.md)
   * [location](api/location.md)
 
