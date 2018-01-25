@@ -9,6 +9,6 @@
 * API
   * [BrowserRouter](api/browser_router.md)
   * [Router](api/router.md)
-  * [match](api/match.md)
   * [location](api/location.md)
+  * [match](api/match.md)
 
