@@ -12,4 +12,5 @@
   * [location](api/location.md)
   * [match](api/match.md)
   * [matchPath](api/matchpath.md)
+  * [withRouter](api/withrouter.md)
 
