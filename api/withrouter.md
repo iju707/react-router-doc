@@ -49,7 +49,17 @@ connect(...)(withRouter(MyComponent))
 
 ## Component.WrappedComponent
 
+감싸진 컴포넌트는 정적 속성인 `WrappedComponent`를 통하여 접근할 수 있습니다. 보통 독립적으로 컴포넌트를 테스트하거나 다른 용도로 사용할 때 이용됩니다.
 
+```js
+// MyComponent.js
+export default withRouter(MyComponent)
+
+// MyComponent.test.js
+import MyComponent from './MyComponent'
+render(<MyComponent.WrappedComponent location={{...}} ... />)
+wrappedComponentRef: func
+```
 
 ## wrappedComponentRef : func
 
