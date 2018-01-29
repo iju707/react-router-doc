@@ -24,3 +24,22 @@
 * `goForward()` - (함수) `go(1)`과 동일
 * `block(prompt)` - (함수) 위치탐색 방지 ([history 문서 참고](https://github.com/ReactTraining/history#blocking-transitions))
 
+## history는 mutable(변경가능)입니다.
+
+history 객체는 mutable입니다. 그렇기 때문에 [location](/api/location.md)를 접근할 때는 `history.location`이 아닌 [`<Route>`](/api/route.md)의 렌더링 속성에서 접근해야 합니다. 이렇게 해야 React의 처리 주기에 맞게 정상동작 할 수 있습니다. 예로들면,
+
+```jsx
+class Comp extends React.Component {
+  componentWillReceiveProps(nextProps) {
+    // true가 될 것 입니다.
+    const locationChanged = nextProps.location !== this.props.location
+
+    // INCORRECT, history 객체는 변하기 때문에 *항상* false가 될 것 입니다.
+    const locationChanged = nextProps.history.location !== this.props.history.location
+  }
+}
+
+<Route component={Comp}/>
+```
+
+추가적인 속성은 사용할 구현방식에 따라 표현하시면 됩니다. 자세한 내용은 [history 문서](https://github.com/ReactTraining/history#properties)를 참고하시기 바랍니다.
