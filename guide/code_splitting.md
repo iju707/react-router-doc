@@ -4,7 +4,7 @@
 
 __Bundle__ 컴포넌트는 새로운 화면에 도달했을 때 로딩하기 좋습니다. 또한 백그라운드에서 어플리케이션의 나머지를 미리 로딩하는데도 좋습니다.
 
-```js
+```jsx
 import loadAbout from 'bundle-loader?lazy!./loadAbout'
 import loadDashboard from 'bundle-loader?lazy!./loadDashboard'
 

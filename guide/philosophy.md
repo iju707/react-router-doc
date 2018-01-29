@@ -6,7 +6,7 @@
 
 Rails, Express, Ember, Angular 등과 같은 것을 사용했다면, Static Routing을 사용했을 것 입니다. 이러한 Framework에서는 화면에 렌더링하기 전에 어플리케이션을 초기화하는 부분에서 Route에 대한 정보를 정의합니다. React Router prev-v4에서도 Static 방식이었습니다. Express에서 어떻게 Route를 설정하는지 살펴보겠습니다.
 
-```js
+```jsx
 app.get('/', handleIndex)
 app.get('/invoices', handleInvoices)
 app.get('/invoices/:id', handleInvoice)
@@ -17,7 +17,7 @@ app.listen()
 
 어플리케이션이 시작되서 요청을 수신하기 전에 어떻게 Route할 것인지 정의를 합니다. Client쪽 Router도 이와 비슷합니다. Angular에서는 상단에 Route할 정보를 정의하고 렌더링하기 전에 최상위 AppModule에 해당 정보를 import합니다.
 
-```js
+```jsx
 const appRoutes: Routes = [
   { path: 'crisis-center',
     component: CrisisListComponent
@@ -49,7 +49,7 @@ export class AppModule { }
 
 Ember는 빌드할 때 읽고 어플리케이션에 가져오는 routes.js 파일을 가지고 있습니다. 다른것과 동일하게 어플리케이션이 렌더링 하기 전에 처리합니다.
 
-```js
+```jsx
 Router.map(function() {
   this.route('about');
   this.route('contact');
@@ -79,7 +79,7 @@ Dynamic Routing에서는 라우팅은 동작하고 있는 어플리케이션 밖
 
 먼저, 대상으로 하는 환경을 _Router_ 컴포넌트로 감싸고 어플리케이션의 가장 최상위에 __render__를 호출합니다.
 
-```js
+```jsx
 // react-native
 import { NativeRouter } from 'react-router-native'
 
@@ -95,7 +95,7 @@ ReactDOM.render((
 
 다음, 새로운 위치로 연결하기 위해 __Link__를 추가합니다.
 
-```js
+```jsx
 const App = () => (
   <div>
     <nav>
@@ -107,7 +107,7 @@ const App = () => (
 
 마지막으로 사용자가 __/dashboard__에 접근했을 때 표출할 UI를 __Route__를 사용하여 렌더링합니다.
 
-```js
+```jsx
 const App = () => (
   <div>
     <nav>
@@ -126,7 +126,7 @@ __Route__는 __<Dashboard {...props} />__를 렌더링할 것 이며, __props__�
 
 많은 Router들이 "nested routes" 컨셉을 가지고 있습니다. 만약 React Router v4 이전을 사용했다면 알고 있을 것 입니다. Static Route 방식에서 Dynamic(rendered routes)으로 바꿀 때, 어떻게 "nest routes"를 할까요? Division 안에 넣으면 어떨까요?
 
-```js
+```jsx
 const App = () => (
   <BrowserRouter>
     {/* here's a div */}
@@ -247,7 +247,7 @@ url: /invoices
 
 React Router의 이전버전에 사용된 Static Routing 방식에서는 위와 같은 경우에 대한 해결책을 제시할 수 없었습니다. 그러나 동적 라우팅에서는 이러한 기능을 선언하여 작성할 수 있습니다. 정적인 설정이 아닌 방식으로 UI를 라우팅하려고 생각해보면 아마 다음과 같은 소스코드로 작성이 될 것 입니다.
 
-```js
+```jsx
 const App = () => (
   <AppLayout>
     <Route path="/invoices" component={Invoices}/>

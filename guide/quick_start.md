@@ -22,7 +22,7 @@ npm install react-router-dom
 
 그 다음, __src/App.js__에 아래의 예제를 복사/붙이기 해보겠습니다.
 
-```js
+```jsx
 import React from 'react'
 import {
   BrowserRouter as Router,

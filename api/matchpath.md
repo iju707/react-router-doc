@@ -2,7 +2,7 @@
 
 `<Route>`가 하는것과 유사하게 일반적인 렌더링과정 밖에서 경로에 대한 매칭을 처리할 때 사용합니다. 예로 렌더링하기전에 서버에서 연관된 데이터를 수집하는 경우입니다.
 
-```js
+```jsx
 import { matchPath } from 'react-router'
 
 const match = matchPath('/users/123', {
@@ -20,7 +20,7 @@ const match = matchPath('/users/123', {
 
 두번째 파라미터는 pathname과 매칭하고 싶은 정보입니다. `Route`의 속성과 동일한 구조입니다.
 
-```js
+```jsx
 {
   path, // like /users/:id
   strict, // optional, defaults to false
