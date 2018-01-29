@@ -9,10 +9,10 @@
 
 `match` 객체를 다양한 곳에서 접근할 수 있습니다.
 
-* Route component에서 `this.props.match`
-* Route render에서 `({match}) => ()`
-* Route children에서 `({ match }) => ()`
-* withRouter에서 `this.props.match`
-* matchPath에서 반환값
+* [Route component](/api/route.md#component)에서 `this.props.match`
+* [Route render](/api/route.md#render)에서 `({match}) => ()`
+* [Route children](/api/route.md#children)에서 `({ match }) => ()`
+* [withRouter](/api/withrouter.md)에서 `this.props.match`
+* [matchPath](/api/matchpath.md)에서 반환값
 
 만약 `Route`가 `path`가 없고 항상 일치한다면, 가장 가까운 상위 `match`값을 가지게 됩니다. 이것은 `withRouter` 사용하는 것과 동일합니다.
