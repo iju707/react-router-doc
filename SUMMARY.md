@@ -8,6 +8,7 @@
   * [코드 분리](guide/code_splitting.md)
 * API
   * [BrowserRouter](api/browser_router.md)
+  * [HashRouter](api/hashrouter.md)
   * [Router](api/router.md)
   * [history](api/history.md)
   * [location](api/location.md)
