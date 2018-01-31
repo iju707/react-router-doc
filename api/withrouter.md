@@ -61,7 +61,7 @@ render(<MyComponent.WrappedComponent location={{...}} ... />)
 wrappedComponentRef: func
 ```
 
-## wrappedComponentRef : func
+## wrappedComponentRef : function
 
 감싸진 컴포넌트의 `ref` 속성을 전달하는 함수입니다.
 

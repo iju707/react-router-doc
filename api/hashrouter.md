@@ -12,3 +12,39 @@ import { HashRouter } from 'react-router-dom'
 </HashRouter>
 ```
 
+## basename: string
+
+모든 location 정보에 대한 기본 URL 입니다. 이 속성은 슬래시(/)로 시작하며, 마지막은 제외합니다.
+
+```jsx
+<HashRouter basename="/calendar"/>
+<Link to="/today"/> // renders <a href="#/calendar/today">
+```
+
+## getUserConfirmation: function
+
+경로탐색 확인 사용을 위한 함수입니다. 기본적으로는 [window.confirm](https://developer.mozilla.org/en-US/docs/Web/API/Window/confirm)를 사용합니다.
+
+```jsx
+// this is the default behavior
+const getConfirmation = (message, callback) => {
+  const allowTransition = window.confirm(message)
+  callback(allowTransition)
+}
+
+<HashRouter getUserConfirmation={getConfirmation}/>
+```
+
+## hashType: string
+
+`window.location.hash`에서 사용될 인코딩타입정보입니다. 가능한 것은 다음과 같습니다.
+
+* `slash` - 해시를 다음과 같이 생성합니다. `#/` 또는 `#/sunshine/lollipops`
+* `noslash` - 해시를 다음과 같이 생성합니다. `#` 또는 `#sunshine/lollipops`
+* `hashbang` - 해시를 [ajax crawlable](https://developers.google.com/webmasters/ajax-crawling/docs/learn-more)(Google에서 더이상 지원안함)방식으로 생성합니다. `#!/` 또는 `#!/sunshine/lollipops`
+
+기본값은 `slash` 입니다.
+
+## children : node
+
+렌더링할 [단일 노드](https://reactjs.org/docs/react-api.html#react.children.only) 입니다.

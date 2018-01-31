@@ -24,7 +24,7 @@ import { BrowserRouter } from 'react-router-dom'
 <Link to="/today"/> // renders <a href="/calendar/today">
 ```
 
-## getUserConfirmation : func
+## getUserConfirmation : function
 
 경로탐색 확인 사용을 위한 함수입니다. 기본적으로는 [window.confirm](https://developer.mozilla.org/en-US/docs/Web/API/Window/confirm)를 사용합니다.
 
