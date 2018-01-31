@@ -9,6 +9,7 @@
 * API
   * [BrowserRouter](api/browser_router.md)
   * [HashRouter](api/hashrouter.md)
+  * [Link](api/link.md)
   * [Router](api/router.md)
   * [history](api/history.md)
   * [location](api/location.md)
