@@ -13,8 +13,7 @@
   * [NavLink](api/navlink.md)
   * [Prompt](api/prompt.md)
   * [MemoryRouter](api/memoryrouter.md)
+  * [Redirect](api/redirect.md)
   * [Router](api/router.md)
   * [history](api/history.md)
   * [location](api/location.md)
-  * [match](api/match.md)
-
