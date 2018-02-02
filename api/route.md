@@ -93,6 +93,39 @@ const FadingRoute = ({ component: Component, ...rest }) => (
 
 ## children : function {#children}
 
+가끔은 경로 일치여부와 상관없이 렌더링을 해야할 경우가 있습니다. 이럴 경우에는 `children` 속성을 활용하시면 됩니다. `render`와 유사한 동작을 하지만 매칭여부에 상관없이 호출됩니다.
+
+`children`은 `component`와 `render` 방식과 동일하게 [Route 속성](#route-props)을 가지고 호출이 됩니다. 단, URL 매칭에 실패하면 `match`는 `null`이 됩니다. 이것을 통하여 라우터의 매칭여부를 가지고 동적화면을 구성할 수 있습니다. 아래의 예제는 매칭되었을 때 `active` 클래스를 추가하는 것입니다.
+
+```jsx
+<ul>
+  <ListItemLink to="/somewhere"/>
+  <ListItemLink to="/somewhere-else"/>
+</ul>
+
+const ListItemLink = ({ to, ...rest }) => (
+  <Route path={to} children={({ match }) => (
+    <li className={match ? 'active' : ''}>
+      <Link to={to} {...rest}/>
+    </li>
+  )}/>
+)
+```
+
+애니메이션 처리할 때도 유용합니다.
+
+```jsx
+<Route children={({ match, ...rest }) => (
+  {/* Animate will always render, so you can use lifecycles
+      to animate its child in and out */}
+  <Animate>
+    {match && <Something {...rest}/>}
+  </Animate>
+)}/>
+```
+
+> **경고** : `<Route component>`와 `<Route render>`가 상위로 수행되기 때문에 동일한 `<Route>`에서 같이 사용하지 마시기 바랍니다.
+
 ## path : string {#path}
 
 [path-to-regexp](https://www.npmjs.com/package/path-to-regexp) 모듈이 인식할 URL 경로입니다.
@@ -118,7 +151,34 @@ const FadingRoute = ({ component: Component, ...rest }) => (
 
 ## strict : boolean {#strict}
 
+`true`이면, `path`가 슬래시로 끝나면 `location.pathname`에서 마지막 슬래시 전까지 제외한 부분에 대하여 일치여부를 판단합니다. `location.pathname`에 추가적으로 붙는 URL 정보는 영향을 주지 않습니다.
+
+```jsx
+<Route strict path="/one/" component={About}/>
+```
+
+| path | location.pathname | matches? |
+| :--- | :--- | :--- |
+| /one/ | /one | no |
+| /one/ | /one/ | yes |
+| /one/ | /one/two | yes |
+
+> **경고** : `strict`는 `location.pathname`이 슬래시로 끝나지 않는지 확인하는 용도로 사용할 순 있지만, 그럴 경우에는 `strict`와 `exact` 모두 `true`로 설정해야 합니다.
+> 
+> ```jsx
+> <Route exact strict path="/one" component={About}/>
+> ```
+
+| path | location.pathname | matches? |
+| :--- | :--- | :--- |
+| /one | /one | yes |
+| /one | /one/ | no |
+| /one | /one/two | no |
+
 ## location : object {#location}
 
+`<Route>`는 `path`정보와 현재 history 경로(보통은 브라우저의 URL)를 가지고 매칭하는지 확인합니다. 그러나 매칭을 위하여 다른 `pathname`을 가진 [location](/api/location.md)을 전달할 수 있습니다.
 
+이것은 현재 history 경로가 아닌 다른 경로를 가지고 `<Route>`와 매칭할 때 유용하며 [Animated Transitions](https://reacttraining.com/react-router/web/example/animated-transitions) 예제에서 보실 수 있습니다.
 
+만약 `<Switch>` 내부에 `<Route>`를 사용하는 경우 `<Switch>`에서 전달된 경로(또는 현재 history 경로)를 가지고 매칭을 확인합니다. 그렇기 때문에 `<Route>`에 `location` 속성을 사용하였어도 `<Switch>`에서 전달되는 것으로 덮어쓰게 됩니다.
